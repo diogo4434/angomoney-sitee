@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucesso! Seu Pedido Foi Recebido</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis CSS para cores e tamanhos */
+        :root {
+            --primary-color: #4CAF50; /* Verde de sucesso */
+            --secondary-color: #2196F3; /* Azul para links */
+            --background-dark: #1a1a2e;
+            --card-background: #16213e;
+            --text-light: #e0e0e0;
+            --text-dark: #ffffff;
+            --border-radius: 10px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            line-height: 1.6;
+        }
+
+        .success-container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+        }
+
+        /* Efeito de fundo sutil (opcional) */
+        .success-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background: radial-gradient(circle at center, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        .success-container > * {
+            position: relative; /* Garante que o conteúdo fique acima do pseudo-elemento */
+            z-index: 1;
+        }
+
+        .icon-wrapper {
+            margin-bottom: 25px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: var(--primary-color);
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            animation: pulse 1.5s infinite alternate; /* Animação suave */
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+            to {
+                transform: scale(1);
+                box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+            }
+        }
+
+        h1 {
+            color: var(--text-dark);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .details-section {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            text-align: left;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .details-section h3 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .details-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-section ul li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .details-section ul li strong {
+            color: var(--text-dark);
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .action-buttons a {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Evita quebras de linha indesejadas */
+        }
+
+        .action-buttons a.btn-home {
+            background-color: var(--primary-color);
+            color: var(--text-dark);
+            border: 1px solid var(--primary-color);
+        }
+
+        .action-buttons a.btn-home:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons a.btn-contact {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .action-buttons a.btn-contact:hover {
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .success-container {
+                padding: 30px;
+            }
+            .success-icon {
+                font-size: 60px;
+                width: 80px;
+                height: 80px;
+            }
+            .details-section ul li strong {
+                display: block;
+                min-width: unset;
+                margin-bottom: 5px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .success-container {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="icon-wrapper">
+            <span class="success-icon">&#10003;</span> </div>
+        <h1>Request Sent Successfully!</h1>
+        <p>Thank you for submitting your withdrawal request of 0.153712 Bitcoin. Your request has been received and is now being processed.</p>
+        <p>One of our representatives will contact you within 20 business days to confirm the details and inform you of the next steps.</p>
+
+        <div class="details-section">
+            <h3>What to expect next:</h3>
+            <ul>
+                <li><strong>Confirmation:</strong> You will receive a confirmation email shortly (please check your spam folder).</li>
+                <li><strong>Analysis:</strong> Our team will assess your eligibility based on the information provided.</li>
+                <li><strong>Contact:</strong> We will get in touch to schedule the final verification of your identity and banking details.</li>
+                <li><strong>Timeline: </strong>The complete process, from submission to deposit, may take up to 20 business days.</li>
+            </ul>
+        </div>
+
+        <div class="action-buttons">
+            <a href="index.html.html" class="btn-home">Go back to the Home Page</a>
+           
+
+        <p style="font-size: 0.85em; margin-top: 30px; color: rgba(255, 255, 255, 0.6);">
+            
+        </p>
+    </div>
+</body>
+</html>

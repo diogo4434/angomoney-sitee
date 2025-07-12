@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levantar Dinheiro - Angomoney</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* ESTILOS CSS TEMPORÁRIOS PARA O FORMULÁRIO (VAMOS MOVER PARA style.css DEPOIS) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222; /* Cor de fundo escura para combinar com seu site */
+            color: #eee;
+            padding-top: 80px; /* Para não ficar atrás do seu navbar */
+        }
+        .container-form {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            display: block;
+            color: #ccc;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #444;
+            color: #eee;
+        }
+        .form-control:focus {
+            border-color: #ff9900;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(255, 153, 0, 0.25);
+        }
+        .btn-submit {
+            background-color: #ff9900;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-submit:hover {
+            background-color: #e68a00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-form">
+        <h2>Formulário de Levantamento de Dinheiro</h2>
+        <form action="processar_levantamento.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nomeCompleto">Nome Completo:</label>
+                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="numeroConta">Número da Conta (Angomoney):</label>
+                <input type="text" class="form-control" id="numeroConta" name="numeroConta" required>
+            </div>
+
+            <div class="form-group">
+                <label for="valorLevantar">Valor a Levantar (Kz):</label>
+                <input type="number" class="form-control" id="valorLevantar" name="valorLevantar" min="100" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="iban">IBAN para Transferência:</label>
+                <input type="text" class="form-control" id="iban" name="iban" placeholder="AO06.xxxxxxxxxxxxxxxxxxxxxxxx">
+            </div>
+
+            <div class="form-group">
+                <label for="nomeBanco">Nome do Banco:</label>
+                <input type="text" class="form-control" id="nomeBanco" name="nomeBanco">
+            </div>
+
+            <div class="form-group">
+                <label for="tipoDocumento">Tipo de Documento:</label>
+                <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                    <option value="">Selecione...</option>
+                    <option value="BI">Bilhete de Identidade</option>
+                    <option value="Passaporte">Passaporte</option>
+                    <option value="CartaConducao">Carta de Condução</option>
+                    <option value="NIF">NIF</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="numeroDocumento">Número do Documento:</label>
+                <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" required>
+            </div>
+
+            <div class="form-group">
+                <label for="comprovanteIdentidadeFrente">Comprovante de Identidade (Frente - Imagem/PDF):</label>
+                <input type="file" class="form-control" id="comprovanteIdentidadeFrente" name="comprovanteIdentidadeFrente" accept=".pdf, .jpg, .jpeg, .png" required>
+            </div>
+
+            <div class="form-group">
+                <label for="comprovanteIdentidadeVerso">Comprovante de Identidade (Verso - Imagem/PDF):</label>
+                <input type="file" class="form-control" id="comprovanteIdentidadeVerso" name="comprovanteIdentidadeVerso" accept=".pdf, .jpg, .jpeg, .png">
+            </div>
+
+            <div class="form-group">
+                <label for="comprovanteResidencia">Comprovante de Residência (Imagem/PDF):</label>
+                <input type="file" class="form-control" id="comprovanteResidencia" name="comprovanteResidencia" accept=".pdf, .jpg, .jpeg, .png">
+            </div>
+
+            <div class="form-group">
+                <label for="observacoes">Observações (opcional):</label>
+                <textarea class="form-control" id="observacoes" name="observacoes" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Enviar Pedido de Levantamento</button>
+        </form>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
